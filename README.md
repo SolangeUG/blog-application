@@ -1,6 +1,6 @@
 # Blog Application
 
-[![MIT License](https://img.shields.io/badge/license-MIT%20License-green.svg)](https://github.com/SolangeUG/todo-list-app/blob/master/LICENSE)
+[![MIT License](https://img.shields.io/badge/license-MIT%20License-green.svg)](https://github.com/SolangeUG/blog-application/blob/master/LICENSE)
 [![Python Language](https://img.shields.io/badge/language-python-FFD745.svg)](https://python.org)
 [![Jinja2 Templating Engine](https://img.shields.io/badge/templating%20engine-Jinja2-B41717.svg)](http://jinja.pocoo.org/docs/2.10/)
 [![Google App Engine Platform](https://img.shields.io/badge/platform-google%20app%20engine-4385F7.svg)](https://cloud.google.com/appengine/docs/standard/python/)
