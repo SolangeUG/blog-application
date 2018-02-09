@@ -9,7 +9,7 @@ This web project is about building, in a step-by-step fashion, a fully-functiona
 
 ## Languages - Libraries - Tools
 
-- [Python 2.7.13](https://www.python.org/downloads/release/python-2713/)
+- [Python 2.7.14](https://www.python.org/downloads/release/python-2714/)
 - [Jinja2 templating engine](http://jinja.pocoo.org/docs/2.10/)
 - [Google App Engine](https://cloud.google.com/appengine/docs/standard/python/download)
 - Any code/text editor ([atom](https://atom.io/)) or IDE ([PyCharm](https://www.jetbrains.com/pycharm/download)) of your choice.
