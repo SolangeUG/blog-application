@@ -4,9 +4,11 @@
         <meta charset="UTF-8">
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-        <meta name="description" content="Google App Engine Blog Application">
+        <meta name="description" content="A Google App Engine Blog Application">
         <meta name="author" content="Solange Umuhire Gasengayire">
-        <title>Blog Application</title>
+        <title>A Google App Engine Blog Application</title>
+        <!-- Link to favicon -->
+        <link rel="icon" href="./favicon.ico">
         <!-- Use Bootstrap 4.0.0 -->
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
               integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
@@ -70,7 +72,8 @@
 
         <!-- Page content -->
         <main role="main" class="container">
-
+            {% block content %}
+            {% endblock %}
         </main>
 
         <!-- Sticky footer -->
