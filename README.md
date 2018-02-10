@@ -1,6 +1,6 @@
 # Blog Application
 
-[![MIT License](https://img.shields.io/badge/license-MIT%20License-green.svg)](https://github.com/SolangeUG/blog-application/blob/master/LICENSE)
+[![Apache License 2.0](https://img.shields.io/badge/license-Apache%202.0-green.svg)](https://github.com/SolangeUG/blog-application/blob/master/LICENSE)
 [![Python Language](https://img.shields.io/badge/language-python-4280B1.svg)](https://python.org)
 [![Jinja2 Templating Engine](https://img.shields.io/badge/templating%20engine-Jinja2-B41717.svg)](http://jinja.pocoo.org/docs/2.10/)
 [![Google App Engine Platform](https://img.shields.io/badge/platform-google%20app%20engine-4385F7.svg)](https://cloud.google.com/appengine/docs/standard/python/)
@@ -32,28 +32,22 @@ Here's a [video tutorial](https://www.youtube.com/watch?v=euox_iFW2eM) on how to
 
 ## License
 
-[The MIT License (MIT)](https://opensource.org/licenses/MIT)
+[Apache License 2.0](http://www.apache.org/licenses/LICENSE-2.0)
 
 ````
 Copyright (c) 2018 Udacity.
 Copyright (c) 2018 Solange Umuhire Gasengayire.
 
-Permission is hereby granted, free of charge, to any person obtaining a copy
-of this software and associated documentation files (the "Software"), to deal
-in the Software without restriction, including without limitation the rights
-to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-copies of the Software, and to permit persons to whom the Software is
-furnished to do so, subject to the following conditions:
+Licensed under the Apache License, Version 2.0 (the "License");
+you may not use this file except in compliance with the License.
+You may obtain a copy of the License at
 
-The above copyright notice and this permission notice shall be included in all
-copies or substantial portions of the Software.
+    http://www.apache.org/licenses/LICENSE-2.0
 
-THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-SOFTWARE.
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.
 
 ````
