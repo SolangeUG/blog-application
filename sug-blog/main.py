@@ -19,6 +19,9 @@ import jinja2
 import webapp2
 
 template_dir = os.path.join(os.path.dirname(__file__), "pages")
+# os.path.dirname(__file__) returns the string name of the current directory ==> 'sug-blog'
+# os.path.join(os.path.dirname(__file__), "pages") appends 'pages' to the current directory ==> 'sug-blogs/pages'
+
 jinja_env = jinja2.Environment(
                 loader=jinja2.FileSystemLoader(template_dir),
                 autoescape=True)
