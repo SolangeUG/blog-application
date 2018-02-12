@@ -55,3 +55,13 @@ code {
 #license > div {
   padding: 10px;
 }
+
+.navbar-nav {
+  position: absolute;
+  left: 42%;
+  transform: translatex(-50%);
+}
+
+.nav-item {
+  margin-right: 40px;
+}
