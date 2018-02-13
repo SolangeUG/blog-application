@@ -17,6 +17,7 @@
 import os
 import jinja2
 import webapp2
+import unit1.hello as hello
 
 template_dir = os.path.join(os.path.dirname(__file__), "pages")
 # os.path.dirname(__file__) returns the string name of the current directory ==> 'sug-blog'
@@ -44,5 +45,6 @@ class MainHandler(webapp2.RequestHandler):
 
 
 app = webapp2.WSGIApplication([
-    ('/', MainHandler)
+    ('/', MainHandler),
+    ('/hello', hello.HelloHandler)
 ], debug=True)
