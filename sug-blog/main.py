@@ -16,6 +16,7 @@
 #
 import webapp2
 import unit1.hello as hello
+import unit2.rot13cipher as cipher
 import handler.handler as handler
 
 
@@ -24,7 +25,7 @@ class MainHandler(handler.TemplateHandler):
         MainHandler inherits from the hander.TemplateHandler class.
         This is the entry point of our blog application, all the
         other handlers will be declared here.
-        Each individual handler represents an endpoint.
+        Each individual handler represents an endpoint to our application.
     """
     def get(self):
         self.render("homepage.html")
@@ -32,5 +33,6 @@ class MainHandler(handler.TemplateHandler):
 
 app = webapp2.WSGIApplication([
     ('/', MainHandler),
-    ('/hello', hello.HelloHandler)
+    ('/hello', hello.HelloHandler),
+    ('/rot13cipher', cipher.Rot13CipherHandler)
 ], debug=True)
