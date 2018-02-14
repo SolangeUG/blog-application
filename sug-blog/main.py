@@ -14,32 +14,18 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 #
-import os
-import jinja2
 import webapp2
 import unit1.hello as hello
-
-template_dir = os.path.join(os.path.dirname(__file__), "pages")
-# os.path.dirname(__file__) returns the string name of the current directory ==> 'sug-blog'
-# os.path.join(os.path.dirname(__file__), "pages") appends 'pages' to the current directory ==> 'sug-blogs/pages'
-
-jinja_env = jinja2.Environment(
-                loader=jinja2.FileSystemLoader(template_dir),
-                autoescape=True)
+import handler.handler as handler
 
 
-class MainHandler(webapp2.RequestHandler):
-    def write(self, *a, **kw):
-        self.response.out.write(*a, **kw)
-
-    @staticmethod
-    def render_str(template, **params):
-        t = jinja_env.get_template(template)
-        return t.render(params)
-
-    def render(self, template, **kw):
-        self.write(self.render_str(template, **kw))
-
+class MainHandler(handler.TemplateHandler):
+    """
+        MainHandler inherits from the hander.TemplateHandler class.
+        This is the entry point of our blog application, all the
+        other handlers will be declared here.
+        Each individual handler represents an endpoint.
+    """
     def get(self):
         self.render("homepage.html")
 

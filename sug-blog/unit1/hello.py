@@ -1,24 +1,10 @@
-import os
-import jinja2
-import webapp2
-
-template_dir = os.path.join(os.path.dirname(__file__), "../pages")
-jinja_env = jinja2.Environment(
-                loader=jinja2.FileSystemLoader(template_dir),
-                autoescape=True)
+import handler.handler as handler
 
 
-class HelloHandler(webapp2.RequestHandler):
-    def write(self, *a, **kw):
-        self.response.out.write(*a, **kw)
-
-    @staticmethod
-    def render_str(template, **params):
-        t = jinja_env.get_template(template)
-        return t.render(params)
-
-    def render(self, template, **kw):
-        self.write(self.render_str(template, **kw))
-
+class HelloHandler(handler.TemplateHandler):
+    """
+        HelloHandler inherits from the hander.TemplateHandler class.
+        Its sole purpose is to render a page that says "Hello, Udacity!"
+    """
     def get(self):
         self.render("hello.html")
