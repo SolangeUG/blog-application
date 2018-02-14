@@ -1,0 +1,33 @@
+{% extends "index.html" %}
+
+{% block content %}
+
+<h3>ROT13 - A simple letter substitution cipher</h3>
+
+<section>
+    <blockquote>
+        <cite>
+            For more information, <a href="https://en.wikipedia.org/wiki/ROT13" target="_blank">Wikipedia</a> to the rescue!
+        </cite>
+    </blockquote>
+    <div>
+        ROT13 ("rotate by 13 places", sometimes hyphenated ROT-13) is a simple letter substitution cipher that replaces
+        a letter with the 13th letter after it, in the alphabet. ROT13 is a special case of the Caesar cipher, developed
+        in ancient Rome. <br/>
+        Because there are 26 letters (2×13) in the basic Latin alphabet, ROT13 is its own inverse; that is, to undo ROT13,
+        the same algorithm is applied, so the same action can be used for encoding and decoding.
+    </div>
+</section>
+
+<section>
+    <h4>Enter your text to ROT13</h4>
+    <form method="post">
+        <div class="form-group">
+            <label for="messageTextArea">Message</label>
+            <textarea class="form-control" id="messageTextArea" rows="4" name="text" autofocus>{{message}}</textarea>
+        </div>
+        <button type="submit" class="btn btn-secondary">Submit</button>
+    </form>
+</section>
+
+{% endblock %}
