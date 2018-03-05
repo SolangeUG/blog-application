@@ -86,13 +86,13 @@ class SignupHandler(handler.TemplateHandler):
             email_error = ""
 
             if not valid_username(username):
-                username_error = "Invalid username."
+                username_error = "Invalid username!"
             if not valid_password(password):
-                password_error = "Invalid password."
+                password_error = "Invalid password!"
             if not valid_cfpassword(password, cfpassword):
-                cfpassword_error = "Your passwords don't match."
+                cfpassword_error = "Your passwords don't match!"
             if not valid_email(user_email):
-                email_error = "Invalid email."
+                email_error = "Invalid email!"
             self.render("signup.html",
                         username=username,
                         username_error=username_error,
