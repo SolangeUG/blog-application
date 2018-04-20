@@ -1,5 +1,15 @@
-application: sug-blog
-version: 1
+## With the use of Google Cloud SDK (the gcloud command) to deploy applications on Google App Engine,
+## it is no longer necessary to set the application name and version in the yaml application descriptor.
+## In fact, it is actually prohibited! Thus, we need to comment out the following lines:
+
+# application: sug-blog
+# version: 1
+
+## From now on, the project name should instead be specified either with the command
+##              gcloud config set project sug-blog
+## or by setting the --project flag on individual command executions, like:
+##              gcloud app deploy --project sug-blog
+
 runtime: python27
 api_version: 1
 threadsafe: yes
