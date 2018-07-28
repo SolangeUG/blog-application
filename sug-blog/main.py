@@ -23,10 +23,9 @@ import handler.handler as handler
 
 class MainHandler(handler.TemplateHandler):
     """
-        MainHandler inherits from the hander.TemplateHandler class.
-        This is the entry point of our blog application, all the
-        other handlers will be declared here.
-        Each individual handler represents an endpoint to our application.
+    MainHandler inherits from the hander.TemplateHandler class.
+    This is the entry point of our blog application, all the other handlers will be declared here.
+    Each individual handler represents an endpoint to our application.
     """
     def get(self):
         self.render("homepage.html")

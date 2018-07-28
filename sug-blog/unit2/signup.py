@@ -63,8 +63,8 @@ def validate_user(username, password, cfpassword, email):
 
 class SignupHandler(handler.TemplateHandler):
     """
-        SignupHandler inherits from the hander.TemplateHandler class.
-        It aggregates methods that offer users the possibility to signup for an account.
+    SignupHandler inherits from the hander.TemplateHandler class.
+    It aggregates methods that offer users the possibility to signup for an account.
     """
 
     def get(self):

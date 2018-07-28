@@ -12,9 +12,9 @@ jinja_env = jinja2.Environment(
 
 class TemplateHandler(webapp2.RequestHandler):
     """
-        TemplateHandler inherits from the webapp2.RequestHandler class.
-        Its main purpose is to aggregate methods that render a given template,
-        with given arguments to the screen.
+    TemplateHandler inherits from the webapp2.RequestHandler class.
+    Its main purpose is to aggregate methods that render a given template,
+    with given arguments, to the screen.
     """
     def write(self, *a, **kw):
         self.response.out.write(*a, **kw)

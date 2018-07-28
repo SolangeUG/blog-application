@@ -55,9 +55,9 @@ def rot13(text):
 
 class Rot13CipherHandler(handler.TemplateHandler):
     """
-        Rot13CipherHandler inherits from the hander.TemplateHandler class.
-        It aggregates methods that help cipher (and decipher) a message
-        using the ROT13 simple letter substitution cipher.
+    Rot13CipherHandler inherits from the hander.TemplateHandler class.
+    It aggregates methods that help cipher (and decipher) a message
+    using the ROT13 simple letter substitution cipher.
     """
 
     def get(self):
