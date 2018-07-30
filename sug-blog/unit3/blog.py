@@ -1,5 +1,6 @@
 import handler.handler as handler
 from google.appengine.ext import db
+import urllib
 
 
 class BlogHandler(handler.TemplateHandler):
@@ -30,8 +31,8 @@ class BlogEntryHandler(handler.TemplateHandler):
 
         if subject and entry:
             new_entry = Entry(subject=subject, content=entry)
-            new_entry.put()
-            self.redirect('/permalink')
+            new_entry_key = new_entry.put()
+            self.redirect('/permalink?entry_key=' + str(new_entry_key))
         else:
             error = "We need both a subject and valid non-empty content!"
             self.render_newentry(subject, entry, error)
@@ -43,9 +44,14 @@ class PermalinkHandler(handler.TemplateHandler):
     It represents the last created blog entry.
     """
     def get(self):
-        query = db.Query(Entry)
-        query.order('-created')
-        entry = query.get()
+        entry_key = db.Key(self.request.get('entry_key'))
+        print entry_key
+        if entry_key:
+            entry = db.get(entry_key)
+        else:
+            query = db.Query(Entry)
+            query.order('-created')
+            entry = query.get()
         self.render("permalink.html", entry=entry)
 
 
