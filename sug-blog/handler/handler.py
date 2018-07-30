@@ -10,6 +10,24 @@ jinja_env = jinja2.Environment(
                 autoescape=True)
 
 
+def format_datetime(value, datetime_format='medium'):
+    """
+    Return a formatted DateTime value.
+    :param value: input value to format
+    :param datetime_format: the desired format
+    :return: the formatted DateTime value
+    """
+    if value:
+        if datetime_format != 'medium':
+            return str(value)
+        else:
+            return value.strftime('%b %d, %Y - %H:%M')
+
+
+# add the previously created format to jinja environment filters
+jinja_env.filters['datetime'] = format_datetime
+
+
 class TemplateHandler(webapp2.RequestHandler):
     """
     TemplateHandler inherits from the webapp2.RequestHandler class.
