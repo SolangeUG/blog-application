@@ -1,0 +1,28 @@
+{% extends "index.html" %}
+
+{% block content %}
+
+<section>
+    <a class="navbar-brand" href="/newentry">
+        <img src="./assets/plus.png" alt="New Blog entry">
+    </a>
+</section>
+
+{% for entry in entries: %}
+    <section>
+        <div class="container">
+            <div class="row">
+                <div class="col-sm"><strong>{{entry.subject}}</strong></div>
+                <div class="col-sm text-right"><strong>{{entry.created|datetime}}</strong></div>
+            </div>
+            <hr>
+            <div class="row">
+                <div class="col">
+                    <p>{{entry.content}}</p>
+                </div>
+            </div>
+        </div>
+    </section>
+{% endfor %}
+
+{% endblock %}
