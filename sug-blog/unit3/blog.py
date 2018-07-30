@@ -43,9 +43,9 @@ class PermalinkHandler(handler.TemplateHandler):
     It represents the last created blog entry.
     """
     def get(self):
-        entry_key = db.Key(self.request.get('entry_key'))
-        print entry_key
+        entry_key = self.request.get('entry_key')
         if entry_key:
+            entry_key = db.Key(entry_key)
             entry = db.get(entry_key)
         else:
             query = db.Query(Entry)
