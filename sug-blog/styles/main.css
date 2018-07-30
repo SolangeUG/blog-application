@@ -55,3 +55,8 @@ code {
 #license > div {
   padding: 10px;
 }
+
+.blog-entry {
+  white-space: pre-wrap;
+  padding-bottom: 20px;
+}
