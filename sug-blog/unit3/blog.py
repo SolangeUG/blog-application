@@ -1,6 +1,5 @@
 import handler.handler as handler
 from google.appengine.ext import db
-import urllib
 
 
 class BlogHandler(handler.TemplateHandler):
