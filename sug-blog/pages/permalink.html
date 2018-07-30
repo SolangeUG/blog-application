@@ -1,0 +1,28 @@
+{% extends "index.html" %}
+
+{% block content %}
+
+<section>
+    <a class="navbar-brand" href="/blog">
+        <img src="./assets/left-arrow.png" alt="Blog">
+    </a>
+
+</section>
+
+<section>
+    <div class="container">
+        <div class="row">
+            <div class="col-sm"><strong>{{entry.subject}}</strong></div>
+            <div class="col-sm"><span> </span></div>
+            <div class="col-sm text-right"><strong>{{entry.created|datetime}}</strong></div>
+        </div>
+        <hr>
+        <div class="row">
+            <div class="col">
+                <p>{{entry.content}}</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+{% endblock %}
