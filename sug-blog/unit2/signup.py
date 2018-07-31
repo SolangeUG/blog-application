@@ -14,7 +14,7 @@ class SignupHandler(handler.TemplateHandler):
     def post(self):
         username = self.request.get('username')
         password = self.request.get('password')
-        cfpassword = self.request.get('cfpassword')
+        cfpassword = self.request.get('verify')
         user_email = self.request.get('email')
         comments = self.request.get('comments')
 
