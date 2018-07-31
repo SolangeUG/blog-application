@@ -11,7 +11,7 @@ class SignupHandler(handler.TemplateHandler):
     def get(self):
         self.render("signup.html")
 
-    def post(self):
+    def post(self, check_cookie=False):
         username = self.request.get('username')
         password = self.request.get('password')
         cfpassword = self.request.get('verify')
@@ -19,7 +19,14 @@ class SignupHandler(handler.TemplateHandler):
         comments = self.request.get('comments')
 
         if validator.validate_user(username, password, cfpassword, user_email):
-            self.redirect('/welcome?username=' + username)
+            if check_cookie:
+                self.response.headers['Content-Type'] = 'text/plain'
+
+                # TODO: set a cookie with the username
+
+                self.redirect('/welcome')
+            else:
+                self.redirect('/welcome?username=' + username)
         else:
             username_error = ""
             password_error = ""
@@ -50,9 +57,16 @@ class WelcomeHandler(handler.TemplateHandler):
     Its sole purpose is to confirm user account signup, or redirect
     them to the signup page if the input information isn't valid.
     """
-    def get(self):
-        user = self.request.get('username')
+    def get(self, check_cookie=False):
+        # case when working with cookies
+        if check_cookie:
+            print "TODO: check username in coookie"
+            user = ''
+        # case when the user name is sent as a request parameter
+        else:
+            user = self.request.get('username')
+
         if validator.is_username_valid(user):
-            self.render("welcome.html", username=user)
+                self.render("welcome.html", username=user)
         else:
             self.redirect('/signup')
