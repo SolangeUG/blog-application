@@ -19,6 +19,7 @@ import unit1.hello as hello
 import unit2.rot13cipher as cipher
 import unit2.signup as form
 import unit3.blog as blog
+import unit4.account as account
 import handler.handler as handler
 
 
@@ -40,5 +41,7 @@ app = webapp2.WSGIApplication([
     ('/welcome', form.WelcomeHandler),
     ('/blog', blog.BlogHandler),
     ('/newentry', blog.BlogEntryHandler),
-    ('/permalink', blog.PermalinkHandler)
+    ('/permalink', blog.PermalinkHandler),
+    ('/account', account.AccountHandler),
+    ('/createdaccount', account.WelcomeHandler)
 ], debug=True)
