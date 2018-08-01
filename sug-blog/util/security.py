@@ -1,5 +1,5 @@
 import hmac
-import bcrypt
+from pybcrypt import bcrypt
 
 SECRET = "ThomasBeaudoin"
 
