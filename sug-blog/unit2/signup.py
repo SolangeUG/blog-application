@@ -16,7 +16,7 @@ class SignupHandler(handler.TemplateHandler):
         password = self.request.get('password')
         cfpassword = self.request.get('verify')
         user_email = self.request.get('email')
-        comments = self.request.get('comments')
+        comments = self.request.get('text')
 
         if validator.validate_user(username, password, cfpassword, user_email):
             self.redirect('/welcome?username=' + username)
@@ -39,7 +39,7 @@ class SignupHandler(handler.TemplateHandler):
                         username_error=username_error,
                         password_error=password_error,
                         cfpassword_error=cfpassword_error,
-                        user_email=user_email,
+                        email=user_email,
                         email_error=email_error,
                         comments=comments)
 
