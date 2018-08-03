@@ -53,5 +53,5 @@ def check_password(password, stored_hash_value):
     :return: True if the input value corresponds to what is expected
              False otherwise
     """
-    hash_value = bcrypt.hashpw(password, bcrypt.gensalt())
+    hash_value = bcrypt.hashpw(password, stored_hash_value)
     return hash_value == stored_hash_value
