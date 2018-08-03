@@ -30,34 +30,26 @@ class SignupHandler(handler.TemplateHandler):
         comments = self.request.get('text')
 
         if validator.validate_user(username, password, cfpassword, user_email):
-            self.response.headers['Content-Type'] = 'text/plain'
 
-            # check if a user cookie has already been set
-            username_cookie = self.request.cookies.get('user')
-            if username_cookie:
-                # make sure the cookie hasn't been tempered with
-                known_username = security.check_secure_val(username_cookie)
-                if known_username:
-                    # do we hava a user associated with the retrieved cookie?
-                    account = db.GqlQuery('SELECT * FROM Account WHERE username=%s' % known_username)
-                    if account:
-                        username_error = "User already exists"
-                        self.render("signup.html", username=username, username_error=username_error)
-                    else:
-                        self.redirect('/account')
-                else:
-                    username_error = "Invalid cookie value"
-                    self.render("signup.html", username=username, username_error=username_error)
+            # check if the input username is unique
+            query = db.Query(Account)
+            query.filter('username =', username)
+            known_account = query.get()
+
+            if known_account:
+                # ask the user to choose a different username
+                username_error = "Username already exists"
+                self.render("signup.html", username=username, username_error=username_error)
             else:
-                # set a cookie with the username
-                user_cookie = security.make_secure_val(username)
-                self.response.headers.add_header('Set-Cookie', 'user=%s' % str(user_cookie))
-
-                # persist user to the datastore
+                # create and persist an account for the user
                 hashed_password = security.hash_password(password)
-                new_account = Account(username=username, password=hashed_password)
+                new_account = Account(username=username, password=hashed_password, email=user_email, comments=comments)
                 new_account.put()
 
+                self.response.headers['Content-Type'] = 'text/plain'
+                # set a cookie with the username
+                user_cookie = security.make_secure_val(username)
+                self.response.headers.add_header('Set-Cookie', 'user=%s; Path=/' % str(user_cookie))
                 self.redirect('/account_created')
         else:
             username_error = ""
@@ -90,23 +82,35 @@ class WelcomeHandler(handler.TemplateHandler):
     them to the signup page if the input information isn't valid.
     """
     def get(self):
-        user = None
         user_cookie = self.request.cookies.get('user')
 
         # retrieve username from cookie
         if user_cookie:
-            user = security.check_secure_val(user_cookie)
+            username = security.check_secure_val(user_cookie)
 
-        # make sure we have a valid username before proceeding
-        if validator.is_username_valid(user):
-            self.render("account.html", username=user)
+            # retrieve user account from the datastore
+            query = db.Query(Account)
+            query.filter('username =', username)
+            account = query.get()
+
+            # FIXME: something isn't working out the way it should here!
+            # make sure we have a valid account before proceeding
+            if account:
+                self.render("account.html", username=account.username,
+                            email=account.email, creation_date=account.created, comments=account.comments)
+            else:
+                if user_cookie:
+                    # in case the user couldn't be found but a cookie had been set
+                    self.response.headers.add_header('Set-Cookie', 'user=%s; Path=/' % str())
+
+                username_error = "Unknown username: " + username + "!"
+                self.render("login.html", username_error=username_error)
         else:
-            # TODO: redirect to the login page with error messages
-            self.redirect('/account_login')
+            self.redirect('/account_signup')
 
     def post(self):
         # when the logout button is clicked, redirect to the logout page
-        self.redirect('/logout')
+        self.redirect('/account_logout')
 
 
 class LoginHandler(handler.TemplateHandler):
@@ -115,10 +119,39 @@ class LoginHandler(handler.TemplateHandler):
     It aggregates methods that let users sign into and view their account information.
     """
     def get(self):
-        pass
+        self.render("login.html")
 
     def post(self):
-        pass
+        username = self.request.get('username')
+        password = self.request.get('password')
+
+        if username and password:
+            # retrieve user from the datastore
+            query = db.Query(Account)
+            query.filter('username =', username)
+            account = query.get()
+
+            if account:
+                # verify input password
+                if security.check_password(password, account.password):
+                    self.response.headers['Content-Type'] = 'text/plain'
+
+                    # set a cookie with the username
+                    user_cookie = security.make_secure_val(account.username)
+                    self.response.headers.add_header('Set-Cookie', 'user=%s; Path=/' % str(user_cookie))
+                    self.redirect("/account_created")
+                else:
+                    # the input password is not valid
+                    message = "Invalid password!"
+                    self.render("login.html", password_error=message)
+            else:
+                # the input username is unknown
+                message = "Invalid username!"
+                self.render("login.html", username_error=message)
+        else:
+            # no username or password were input
+            self.render("login.html", username_error="Please input valid usename!",
+                        password_error="Please input valid password!")
 
 
 class LogoutHandler(handler.TemplateHandler):
@@ -127,7 +160,10 @@ class LogoutHandler(handler.TemplateHandler):
     It allows users to sign out of their accounts.
     """
     def get(self):
-        pass
+        # clear out any account cookie that might have been set
+        self.response.headers.add_header('Set-Cookie', 'user=%s; Path=/' % str())
+        # all we ever do from here is go back to the general accounts page
+        self.redirect('/account')
 
 
 class Account(db.Model):
@@ -137,9 +173,11 @@ class Account(db.Model):
         - username : the username chosen by the user
         - password : the hashed value of the password chosen by the user
         - email : the user's email address
+        - comments : the user's comments upon account creation
         - created : creation date and time of user account
     """
     username = db.StringProperty(required=True, indexed=True)
     password = db.StringProperty(required=True)
     email = db.StringProperty()
+    comments = db.TextProperty()
     created = db.DateTimeProperty(auto_now_add=True)
