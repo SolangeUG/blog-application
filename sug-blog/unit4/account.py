@@ -49,7 +49,7 @@ class AccountHandler(handler.TemplateHandler):
                 new_account = Account(username=username, password=hashed_password)
                 new_account.put()
 
-                self.redirect('/createdaccount')
+                self.redirect('/accountcreated')
         else:
             username_error = ""
             password_error = ""
@@ -98,11 +98,13 @@ class WelcomeHandler(handler.TemplateHandler):
 class Account(db.Model):
     """
     This class inherits from the GAE db.Model (entity) class, and represents a user account.
-    A user account is made of three properties:
+    A user account is made of the following properties:
         - username : the username chosen by the user
         - password : the hashed value of the password chosen by the user
+        - email : the user's email address
         - created : creation date and time of user account
     """
-    username = db.StringProperty(required=True)
+    username = db.StringProperty(required=True, indexed=True)
     password = db.StringProperty(required=True)
+    email = db.StringProperty()
     created = db.DateTimeProperty(auto_now_add=True)
