@@ -43,5 +43,5 @@ app = webapp2.WSGIApplication([
     ('/newentry', blog.BlogEntryHandler),
     ('/permalink', blog.PermalinkHandler),
     ('/account', account.AccountHandler),
-    ('/createdaccount', account.WelcomeHandler)
+    ('/accountcreated', account.WelcomeHandler)
 ], debug=True)
