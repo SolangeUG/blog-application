@@ -7,6 +7,15 @@ from google.appengine.ext import db
 class AccountHandler(handler.TemplateHandler):
     """
     AccountHandler inherits from the hander.TemplateHandler class.
+    It gives users the possibility to signup for, or log into, an account.
+    """
+    def get(self):
+        self.render("accounts.html")
+
+
+class SignupHandler(handler.TemplateHandler):
+    """
+    SignupHandler inherits from the hander.TemplateHandler class.
     It aggregates methods that offer users the possibility to create and persist an account.
     """
 
@@ -49,7 +58,7 @@ class AccountHandler(handler.TemplateHandler):
                 new_account = Account(username=username, password=hashed_password)
                 new_account.put()
 
-                self.redirect('/accountcreated')
+                self.redirect('/account_created')
         else:
             username_error = ""
             password_error = ""
@@ -90,9 +99,35 @@ class WelcomeHandler(handler.TemplateHandler):
 
         # make sure we have a valid username before proceeding
         if validator.is_username_valid(user):
-            self.render("welcome.html", username=user)
+            self.render("account.html", username=user)
         else:
-            self.redirect('/account')
+            # TODO: redirect to the login page with error messages
+            self.redirect('/account_login')
+
+    def post(self):
+        # when the logout button is clicked, redirect to the logout page
+        self.redirect('/logout')
+
+
+class LoginHandler(handler.TemplateHandler):
+    """
+    LoginHandler inherits from the handler.TemplateHandler class.
+    It aggregates methods that let users sign into and view their account information.
+    """
+    def get(self):
+        pass
+
+    def post(self):
+        pass
+
+
+class LogoutHandler(handler.TemplateHandler):
+    """
+    LoginHandler inherits from the handler.TemplateHandler class.
+    It allows users to sign out of their accounts.
+    """
+    def get(self):
+        pass
 
 
 class Account(db.Model):
