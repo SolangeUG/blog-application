@@ -4,22 +4,30 @@
 
 <section>
     <img src="./assets/user.png" alt="User Account Information">
+    <span><strong>Account Information</strong></span>
 </section>
 
 <section>
     <form method="post">
         <div class="form-group">
-            <label class="text-default">Welcome, </label>
-            <label class="text-info">{{username}}</label>
-            <label class="text-default"> !</label>
+            <label class="text-default">Welcome</label>
+            <input class="form-control" type="text" id="usernameInput"
+                   value="{{username}}" name="username" autofocus disabled>
         </div>
         <div class="form-group">
-            <label class="text-default">Email: </label>
-            <label class="text-info">{{email}}</label>
+            <label class="text-default">Email address</label>
+            <input class="form-control" type="email" id="emailInput"
+                   value="{{email}}" name="email" disabled>
         </div>
         <div class="form-group">
             <label class="text-default">Created on: </label>
-            <label class="text-info">{{creation_date}}</label>
+            <input class="form-control" type="email" id="dateInput"
+                   value="{{creation_date|datetime}}" name="email" disabled>
+        </div>
+        <div class="form-group">
+            <label class="text-default">Comments: </label>
+            <textarea class="form-control" id="commentInput" rows="4" disabled
+                      name="text" value="{{comments}}">{{comments}}</textarea>
         </div>
         <button type="submit" class="btn btn-secondary">Logout</button>
     </form>
