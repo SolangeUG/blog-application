@@ -1,3 +1,4 @@
+import urllib
 import handler.handler as handler
 import util.security as security
 import util.validator as validator
@@ -44,13 +45,13 @@ class SignupHandler(handler.TemplateHandler):
                 # create and persist an account for the user
                 hashed_password = security.hash_password(password)
                 new_account = Account(username=username, password=hashed_password, email=user_email, comments=comments)
-                new_account.put()
+                key = new_account.put()
 
                 self.response.headers['Content-Type'] = 'text/plain'
                 # set a cookie with the username
                 user_cookie = security.make_secure_val(username)
                 self.response.headers.add_header('Set-Cookie', 'user=%s; Path=/' % str(user_cookie))
-                self.redirect('/account_created')
+                self.redirect('/account_created?' + urllib.urlencode({'account_key': key}))
         else:
             username_error = ""
             password_error = ""
@@ -88,12 +89,18 @@ class WelcomeHandler(handler.TemplateHandler):
         if user_cookie:
             username = security.check_secure_val(user_cookie)
 
-            # retrieve user account from the datastore
+            # retrieve user account by their username from the datastore
             query = db.Query(Account)
             query.filter('username =', username)
             account = query.get()
 
-            # FIXME: something isn't working out the way it should here!
+            # if the above attempt doesn't work, try retrieving by the account key
+            if not account:
+                account_key = self.request.get('account_key')
+                if account_key:
+                    account_key = db.Key(account_key)
+                    account = db.get(account_key)
+
             # make sure we have a valid account before proceeding
             if account:
                 self.render("account.html", username=account.username,
@@ -103,7 +110,7 @@ class WelcomeHandler(handler.TemplateHandler):
                     # in case the user couldn't be found but a cookie had been set
                     self.response.headers.add_header('Set-Cookie', 'user=%s; Path=/' % str())
 
-                username_error = "Unknown username: " + username + "!"
+                username_error = "Unknown username: " + username
                 self.render("login.html", username_error=username_error)
         else:
             self.redirect('/account_signup')
