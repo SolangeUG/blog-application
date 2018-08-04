@@ -1,4 +1,3 @@
-import urllib
 import handler.handler as handler
 import util.security as security
 import util.validator as validator
@@ -50,8 +49,10 @@ class SignupHandler(handler.TemplateHandler):
                 self.response.headers['Content-Type'] = 'text/plain'
                 # set a cookie with the username
                 user_cookie = security.make_secure_val(username)
-                self.response.headers.add_header('Set-Cookie', 'user=%s; Path=/' % str(user_cookie))
-                self.redirect('/account_created?' + urllib.urlencode({'account_key': key}))
+                self.response.set_cookie('user', str(user_cookie), max_age=3600, path='/')
+                self.response.set_cookie('account_key', str(key), max_age=360, path='/')
+                self.redirect('/account_created')
+
         else:
             username_error = ""
             password_error = ""
@@ -84,6 +85,7 @@ class WelcomeHandler(handler.TemplateHandler):
     """
     def get(self):
         user_cookie = self.request.cookies.get('user')
+        account_key = self.request.cookies.get('account_key')
 
         # retrieve username from cookie
         if user_cookie:
@@ -96,7 +98,6 @@ class WelcomeHandler(handler.TemplateHandler):
 
             # if the above attempt doesn't work, try retrieving by the account key
             if not account:
-                account_key = self.request.get('account_key')
                 if account_key:
                     account_key = db.Key(account_key)
                     account = db.get(account_key)
@@ -107,8 +108,11 @@ class WelcomeHandler(handler.TemplateHandler):
                             email=account.email, creation_date=account.created, comments=account.comments)
             else:
                 if user_cookie:
-                    # in case the user couldn't be found but a cookie had been set
-                    self.response.headers.add_header('Set-Cookie', 'user=%s; Path=/' % str())
+                    # in case the user couldn't be found but a cookie with a username had been set
+                    self.response.unset_cookie('user')
+                if account_key:
+                    # in case the user couldn't be found but a cookie with an account key had been set
+                    self.response.unset_cookie('account_key')
 
                 username_error = "Unknown username: " + username
                 self.render("login.html", username_error=username_error)
@@ -145,7 +149,7 @@ class LoginHandler(handler.TemplateHandler):
 
                     # set a cookie with the username
                     user_cookie = security.make_secure_val(account.username)
-                    self.response.headers.add_header('Set-Cookie', 'user=%s; Path=/' % str(user_cookie))
+                    self.response.set_cookie('user', str(user_cookie), max_age=3600, path='/')
                     self.redirect("/account_created")
                 else:
                     # the input password is not valid
@@ -169,6 +173,7 @@ class LogoutHandler(handler.TemplateHandler):
     def get(self):
         # clear out any account cookie that might have been set
         self.response.headers.add_header('Set-Cookie', 'user=%s; Path=/' % str())
+        self.response.headers.add_header('Set-Cookie', 'account_key=%s; Path=/' % str())
         # all we ever do from here is go back to the general accounts page
         self.redirect('/account')
 
