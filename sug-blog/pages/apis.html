@@ -54,10 +54,18 @@
 
 <section>
     <p>
-        <a class="btn btn-secondary" href="/blog.json" role="button">
+        <button class="btn btn-secondary" type="button" data-toggle="collapse" data-target="#blogentries"
+                aria-expanded="false" aria-controls="blogentries">
             Blog entries in JSON format
-        </a>
+        </button>
     </p>
+    <div class="collapse" id="blogentries">
+        <div class="card card-body">
+            <samp>
+                {{ entries }}
+            </samp>
+        </div>
+    </div>
 </section>
 
 {% endblock %}
