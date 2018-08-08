@@ -48,5 +48,5 @@ app = webapp2.WSGIApplication([
     ('/account_created', account.WelcomeHandler),
     ('/account_login', account.LoginHandler),
     ('/account_logout', account.LogoutHandler),
-    ('/apis', apis.BlogAPIHAndler),
+    ('/apis', apis.BlogAPIHAndler)
 ], debug=True)
