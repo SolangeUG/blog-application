@@ -21,6 +21,7 @@ import unit2.signup as form
 import unit3.blog as blog
 import unit4.account as account
 import unit5.apis as apis
+import unit6.caching as caching
 import handler.handler as handler
 
 
@@ -48,5 +49,6 @@ app = webapp2.WSGIApplication([
     ('/account_created', account.WelcomeHandler),
     ('/account_login', account.LoginHandler),
     ('/account_logout', account.LogoutHandler),
-    ('/apis', apis.BlogAPIHAndler)
+    ('/apis', apis.BlogAPIHAndler),
+    ('/caching', caching.CachingHandler)
 ], debug=True)
