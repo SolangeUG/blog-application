@@ -1,5 +1,22 @@
 import handler.handler as handler
 from google.appengine.ext import db
+from google.appengine.api import memcache
+
+
+def get_blog_entries(update=False):
+    """
+    Retrieve a list of blog entries from the datastore
+    :param update: run the DB query only when it's necessary
+    :return: list of blog entries
+    """
+    # use caching to avoid making DB queries at each page load
+    key = 'top'
+    entries = memcache.get(key)
+    if entries is None or update:
+        entries = db.GqlQuery('SELECT * FROM Entry ORDER BY created DESC LIMIT 10')
+        entries = list(entries)
+        memcache.set(key, entries)
+    return entries
 
 
 class BlogHandler(handler.TemplateHandler):
@@ -9,7 +26,7 @@ class BlogHandler(handler.TemplateHandler):
     """
 
     def get(self):
-        entries = db.GqlQuery('SELECT * FROM Entry ORDER BY created DESC')
+        entries = get_blog_entries()
         self.render("blog.html", entries=entries)
 
 
@@ -31,6 +48,10 @@ class BlogEntryHandler(handler.TemplateHandler):
         if subject and entry:
             new_entry = Entry(subject=subject, content=entry)
             new_entry_key = new_entry.put()
+
+            # rerun the DB query and update the cache
+            get_blog_entries(True)
+            
             self.redirect('/permalink?entry_key=' + str(new_entry_key))
         else:
             error = "We need both a subject and valid non-empty content!"
