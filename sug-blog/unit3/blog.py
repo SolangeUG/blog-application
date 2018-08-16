@@ -1,3 +1,4 @@
+import time
 import logging
 import handler.handler as handler
 from google.appengine.ext import db
@@ -20,6 +21,10 @@ def get_blog_entries(update=False):
     logging.error('MEMCACHE | Blog entries %s' % str(entries))
 
     if (entries is None) or (len(entries) == 0) or update:
+        # necessary artificial delay when a new entry has just been added to the collection
+        if update:
+            time.sleep(2)
+
         entries = db.GqlQuery('SELECT * FROM Entry ORDER BY created DESC LIMIT 10')
         entries = list(entries)
         memcache.set(key, entries)
