@@ -1,6 +1,10 @@
+import logging
 import handler.handler as handler
 from google.appengine.ext import db
 from google.appengine.api import memcache
+
+# log hits to memcache and hits to the datastore
+logging.basicConfig(format='%(levelname)s:%(message)s', level=logging.DEBUG)
 
 
 def get_blog_entries(update=False):
@@ -12,10 +16,16 @@ def get_blog_entries(update=False):
     # use caching to avoid making DB queries at each page load
     key = 'top'
     entries = memcache.get(key)
-    if entries is None or update:
+
+    logging.error('MEMCACHE | Blog entries %s' % str(entries))
+
+    if (entries is None) or (len(entries) == 0) or update:
         entries = db.GqlQuery('SELECT * FROM Entry ORDER BY created DESC LIMIT 10')
         entries = list(entries)
         memcache.set(key, entries)
+
+        logging.error('DATASTORE | Blog entries count %s' % str(len(entries)))
+
     return entries
 
 
@@ -24,7 +34,6 @@ class BlogHandler(handler.TemplateHandler):
     BlogHandler inherits from the hander.TemplateHandler class.
     It aggregates functionalities for creating and retrieving blog posts, using the GAE Datastore.
     """
-
     def get(self):
         entries = get_blog_entries()
         self.render("blog.html", entries=entries)
@@ -51,7 +60,7 @@ class BlogEntryHandler(handler.TemplateHandler):
 
             # rerun the DB query and update the cache
             get_blog_entries(True)
-            
+
             self.redirect('/permalink?entry_key=' + str(new_entry_key))
         else:
             error = "We need both a subject and valid non-empty content!"
