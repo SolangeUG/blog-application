@@ -22,6 +22,7 @@ import unit3.blog as blog
 import unit4.account as account
 import unit5.apis as apis
 import unit6.caching as caching
+import unit7.scaling as scaling
 import handler.handler as handler
 
 
@@ -50,5 +51,6 @@ app = webapp2.WSGIApplication([
     ('/account_login', account.LoginHandler),
     ('/account_logout', account.LogoutHandler),
     ('/apis', apis.BlogAPIHAndler),
-    ('/caching', caching.CachingHandler)
+    ('/caching', caching.CachingHandler),
+    ('/scaling', scaling.ScalingHandler)
 ], debug=True)
