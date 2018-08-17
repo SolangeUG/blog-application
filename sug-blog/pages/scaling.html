@@ -1,0 +1,86 @@
+{% extends "index.html" %}
+
+{% block content %}
+
+<h3 class="text-primary">The Twelve-Factor App</h3>
+<section>
+    <blockquote>
+        <cite>
+            Excerpt from the
+            <a href="https://12factor.net/" target="_blank">
+                Twelve-Factor App website.
+            </a>
+        </cite>
+        <footer class="blockquote-footer">© 2018 Adam Wiggins</footer>
+    </blockquote>
+</section>
+
+<section>
+    <h4 class="text-secondary">Introduction</h4>
+    <div>
+        In the modern era, software is commonly delivered as a service: called web apps, or software-as-a-service.
+        The twelve-factor app is a methodology for building software-as-a-service apps that:
+        <ul>
+            <li>
+                Use declarative formats for setup automation, to minimize time and cost for new developers joining
+                the project;
+            </li>
+            <li>
+                Have a clean contract with the underlying operating system, offering maximum portability between
+                execution environments;
+            </li>
+            <lI>
+                Are suitable for deployment on modern cloud platforms, obviating the need for servers and systems
+                administration;
+            </lI>
+            <li>
+                Minimize divergence between development and production, enabling continuous deployment for maximum agility;
+            </li>
+            <li>
+                And can scale up without significant changes to tooling, architecture, or development practices.
+            </li>
+        </ul>
+        <div>
+            The twelve-factor methodology can be applied to apps written in any programming language, and which use any
+            combination of backing services (database, queue, memory cache, etc).
+        </div>
+    </div>
+</section>
+
+<section>
+    <h4 class="text-secondary">Background</h4>
+    <div>
+        The contributors to this document have been directly involved in the development and deployment of hundreds
+        of apps, and indirectly witnessed the development, operation, and scaling of hundreds of thousands of apps
+        via our work on the Heroku platform.
+    </div>
+    <div>
+        This document synthesizes all of our experience and observations on a wide variety of software-as-a-service
+        apps in the wild. It is a triangulation on ideal practices for app development, paying particular attention
+        to the dynamics of the organic growth of an app over time, the dynamics of collaboration between developers
+        working on the app’s codebase, and avoiding the cost of software erosion.
+    </div>
+    <div>
+        Our motivation is to raise awareness of some systemic problems we’ve seen in modern application development,
+        to provide a shared vocabulary for discussing those problems, and to offer a set of broad conceptual solutions
+        to those problems with accompanying terminology. The format is inspired by Martin Fowler’s books Patterns of
+        Enterprise Application Architecture and Refactoring.
+    </div>
+</section>
+
+<section>
+    <h4 class="text-secondary">Who should read this document?</h4>
+    <div>
+        Any developer building applications which run as a service. Ops engineers who deploy or manage such applications.
+    </div>
+</section>
+
+<section>
+    <div>
+        <a class="text-info" href="https://12factor.net/" target="_blank">
+            Continue here...
+        </a>
+    </div>
+</section>
+
+{% endblock %}
