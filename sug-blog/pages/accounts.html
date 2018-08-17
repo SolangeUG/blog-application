@@ -2,40 +2,76 @@
 
 {% block content %}
 
-<h3 class="text-center">User Accounts Management</h3>
-
 <section>
-    <div class="container">
-        <div class="row">
-            <div class="col-sm">
-                <a class="navbar-brand" href="/account_signup">
-                    <img src="./assets/signup.png" alt="Account Signup">
-                    <span><strong>Signup</strong></span>
-                </a>
-            </div>
-            <div class="col-sm text-right">
-                <a class="navbar-brand" href="/account_login">
-                    <img src="./assets/login.png" alt="Account Login">
-                    <span><strong>Login</strong></span>
-                </a>
-            </div>
+    <div class="row">
+        <div class="col-sm text-right">
+            <a class="navbar-brand text-info" href="/account_signup">
+                <img src="./assets/signup.png" alt="Account Signup">
+                <span class="font-weight-bold">Signup</span>
+            </a>
+            | &nbsp; &nbsp;
+            <a class="navbar-brand text-info" href="/account_login">
+                <img src="./assets/login.png" alt="Account Login">
+                <span class="font-weight-bold">Login</span>
+            </a>
         </div>
     </div>
 </section>
 
 <section>
+    <h3 class="text-primary">User Accounts Management</h3>
+</section>
+
+<section>
     <blockquote>
         <cite>
-            <a href="https://jumpcloud.com/blog/what-is-user-management/" target="_blank">What is User Management?</a>
+            Excerpt from
+            <a href="https://jumpcloud.com/blog/what-is-user-management/"
+               target="_blank"  class="text-info">What is User Management?
+            </a>
         </cite>
+        <footer class="blockquote-footer">© 2017 Vince Lujan</footer>
     </blockquote>
     <div>
         "User management describes the ability for administrators to manage user access to various IT resources
-        like systems, devices, applications, storage systems, networks, SaaS services, and more.
+        like systems, devices, applications, storage systems, networks,
+        <a href="https://jumpcloud.com/blog/cloud-iam-feature-saas-ldap/"
+           target="_blank" class="text-info">SaaS services</a>, and more.
         User management is a core part to any directory service and is a basic security essential for any organization.
         User management enables admins to control user access and on-board and off-board users to and from IT resources.
         Subsequently a directory service will then authenticate, authorize, and audit user access to IT resources
         based on what the IT admin had dictated."
+    </div>
+</section>
+
+<section>
+    <h4 class="text-secondary">Why Manage User Identities?</h4>
+    <section>
+        <div>
+            Simply put, user management solves the problem of managing user access to various resources.
+            For example, the marketing team generally requires access to different resources than the accounting team.
+            Further, an employee on the marketing likely doesn’t need access to internal financial systems and vice versa,
+            a finance employee isn’t requiring access to Salesforce or Marketo. User management enables IT administrators
+            to manage resources and provision users based on need and role.
+        </div>
+    </section>
+    <section>
+        <div>
+            Recent innovations in cloud technology have sparked a revolution in cloud Infrastructure-as-a-Service (IaaS)
+            such as AWS, Azure, and Google Cloud Platform among others. Coupled with web applications, users have more
+            IT resources available at their fingertips than ever before, which is why user management has never been
+            more essential. While there are various approaches to user management, one thing is certain – managing user
+            identities is the foundation of identity access management.
+        </div>
+    </section>
+</section>
+
+<section>
+    <div>
+        <a class="font-weight-bold text-info" href="https://jumpcloud.com/blog/what-is-user-management/"
+           target="_blank">
+            Read more
+        </a>
     </div>
 </section>
 
