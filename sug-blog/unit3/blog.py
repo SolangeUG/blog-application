@@ -18,7 +18,7 @@ def get_blog_entries(update=False):
     key = 'top'
     entries = memcache.get(key)
 
-    logging.error('MEMCACHE | Blog entries %s' % str(entries))
+    logging.warn('MEMCACHE | Blog entries %s' % str(entries))
 
     if (entries is None) or (len(entries) == 0) or update:
         # necessary artificial delay when a new entry has just been added to the collection
@@ -29,7 +29,7 @@ def get_blog_entries(update=False):
         entries = list(entries)
         memcache.set(key, entries)
 
-        logging.error('DATASTORE | Blog entries count %s' % str(len(entries)))
+        logging.warn('DATASTORE | Blog entries count %s' % str(len(entries)))
 
     return entries
 
