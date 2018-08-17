@@ -28,7 +28,7 @@
 </section>
 
 <section>
-    <h4>When to use a memory cache</h4>
+    <h4 class="text-secondary">When to use a memory cache</h4>
     <div>
         One use of a memory cache is to speed up common datastore queries. If many requests make the same query with
         the same parameters, and changes to the results do not need to appear on the web site right away, the application
@@ -39,32 +39,34 @@
 </section>
 
 <section>
-    <h4>Best practices</h4>
+    <h4 class="text-secondary">Best practices</h4>
     <div>
         Following are some best practices for using memcache:
-        <ul>
-            <li>
-                <strong>Handle memcache API failures gracefully.</strong>
-                Memcache operations can fail for various reasons. Applications should be designed to catch failed
-                operations without exposing these errors to end users. This guidance applies especially to Set operations.
-            </li>
-            <li>
-                <strong>Use the batching capability of the API when possible,</strong> especially for small items.
-                Doing so increases the performance and efficiency of your app.
-            </li>
-            <li>
-                <strong>Distribute load across your memcache keyspace.</strong> Having a single or small set of memcache
-                items represent a disproportionate amount of traffic will hinder your app from scaling.
-                This guidance applies to both operations/sec and bandwidth. You can often alleviate this problem by
-                explicitly sharding your data.
+        <div>
+            <ul>
+                <li>
+                    <strong>Handle memcache API failures gracefully.</strong>
+                    Memcache operations can fail for various reasons. Applications should be designed to catch failed
+                    operations without exposing these errors to end users. This guidance applies especially to Set operations.
+                </li>
+                <li>
+                    <strong>Use the batching capability of the API when possible,</strong> especially for small items.
+                    Doing so increases the performance and efficiency of your app.
+                </li>
+                <li>
+                    <strong>Distribute load across your memcache keyspace.</strong> Having a single or small set of memcache
+                    items represent a disproportionate amount of traffic will hinder your app from scaling.
+                    This guidance applies to both operations/sec and bandwidth. You can often alleviate this problem by
+                    explicitly sharding your data.
 
-                For example, you can split a frequently updated counter among several keys, reading them back and
-                summing only when you need a total. Likewise, you can split a 500K piece of data that must be read on
-                every HTTP request across multiple keys and read them back using a single batch API call.
-                (Even better would be to cache the value in instance memory.) For dedicated memcache, the peak access
-                rate on a single key should be 1-2 orders of magnitude less than the per-GB rating.
-            </li>
-        </ul>
+                    For example, you can split a frequently updated counter among several keys, reading them back and
+                    summing only when you need a total. Likewise, you can split a 500K piece of data that must be read on
+                    every HTTP request across multiple keys and read them back using a single batch API call.
+                    (Even better would be to cache the value in instance memory.) For dedicated memcache, the peak access
+                    rate on a single key should be 1-2 orders of magnitude less than the per-GB rating.
+                </li>
+            </ul>
+        </div>
     </div>
     <div>
         For more details and more best practices for concurrency, performance, and migration, including sharing memcache
