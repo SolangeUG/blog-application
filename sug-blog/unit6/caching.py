@@ -7,5 +7,4 @@ class CachingHandler(handler.TemplateHandler):
     It displays an information page about caching.
     """
     def get(self):
-        # TODO: insert logic!
         self.render("caching.html")
