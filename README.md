@@ -19,7 +19,7 @@ This web project is about building, in a step-by-step fashion, a fully-functiona
 > Google App Engine allows to build scalable web and mobile backends in any language on Google’s infrastructure.
 
 In this project, we use the original local development App Engine SDK for Python.
-The latest version - `1.9.66` - can be downloaded [here](https://cloud.google.com/appengine/docs/standard/python/download#python_windows).
+The latest version - `1.9.74` - can be downloaded [here](https://cloud.google.com/appengine/docs/standard/python/download#python_windows).
 
 In order to deploy the application online, you'll need to sign up for a [google account](https://developers.google.com/), if you don't have one already.
 
