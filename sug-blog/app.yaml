@@ -14,6 +14,16 @@ runtime: python27
 api_version: 1
 threadsafe: yes
 
+skip_files:
+  # default files to ignore
+  - ^(.*/)?#.*#$
+  - ^(.*/)?.*~$
+  - ^(.*/)?.*\.py[co]$
+  - ^(.*/)?.*/RCS/.*$
+  - ^(.*/)?\..*$
+  # custom files to ignore
+  - ^\.idea$
+
 handlers:
 - url: /favicon\.ico
   static_files: favicon.ico
